@@ -7,7 +7,7 @@ spec:
   selector:
     matchLabels:
       app: hello
-  replicas: 2
+  replicas: 4
   template:
     metadata:
       labels:
@@ -18,7 +18,7 @@ spec:
 
       containers:
         - name: hello
-          image: pstast/hello-kubernetes:1.0
+          image: pstast/hello-kubernetes:2.0
           ports:
             - containerPort: 8080
 
