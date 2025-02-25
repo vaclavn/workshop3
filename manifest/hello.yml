@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: hello
-  namespace: <NAMESPACE>
+  namespace: vnovotny
 spec:
   selector:
     matchLabels:
@@ -13,8 +13,8 @@ spec:
       labels:
         app: hello
     spec:
-#      nodeSelector:
-#        role-app: app
+      #      nodeSelector:
+      #        role-app: app
 
       containers:
         - name: hello
@@ -47,12 +47,11 @@ spec:
 #              memory: 200Mi
 
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
   name: hello
-  namespace: <NAMESPACE>
+  namespace: vnovotny
 spec:
   ports:
     - protocol: TCP
@@ -62,31 +61,30 @@ spec:
     app: hello
 
 ---
-
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: hello
-  namespace: <NAMESPACE>
+  namespace: vnovotny
   annotations:
     alb.ingress.kubernetes.io/group.name: exprm-k8s-exprm1
     alb.ingress.kubernetes.io/load-balancer-name: exprm-k8s-exprm1
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
-    alb.ingress.kubernetes.io/ssl-redirect: '443'
+    alb.ingress.kubernetes.io/ssl-redirect: "443"
     alb.ingress.kubernetes.io/ssl-policy: ELBSecurityPolicy-TLS13-1-2-Res-2021-06
 
-    alb.ingress.kubernetes.io/healthcheck-path: '/'
-    alb.ingress.kubernetes.io/healthcheck-interval-seconds: '5'
-    alb.ingress.kubernetes.io/healthcheck-timeout-seconds: '4'
-    alb.ingress.kubernetes.io/healthy-threshold-count: '2'
-    alb.ingress.kubernetes.io/unhealthy-threshold-count: '2'
+    alb.ingress.kubernetes.io/healthcheck-path: "/"
+    alb.ingress.kubernetes.io/healthcheck-interval-seconds: "5"
+    alb.ingress.kubernetes.io/healthcheck-timeout-seconds: "4"
+    alb.ingress.kubernetes.io/healthy-threshold-count: "2"
+    alb.ingress.kubernetes.io/unhealthy-threshold-count: "2"
 
 spec:
   ingressClassName: alb
   rules:
-    - host: <NAMESPACE>.exprm.gopay.com
+    - host: vnovotny.exprm.gopay.com
       http:
         paths:
           - path: /
